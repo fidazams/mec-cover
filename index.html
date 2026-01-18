@@ -342,6 +342,33 @@
 
         <!-- Linking the script file -->
         <script src="script.js"></script>
+        <script>
+    // AUTO-FILL FORM FROM URL PARAMETERS
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const params = new URLSearchParams(window.location.search);
+
+        const setVal = (id, key) => {
+            if (params.has(key)) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.value = params.get(key);
+                }
+            }
+        };
+
+        // Fill fields
+        setVal('name', 'nm');
+        setVal('roll', 'rl');
+        setVal('department', 'dp'); // Must match option value exactly
+        setVal('session', 'ss');
+        setVal('batch', 'bt');
+
+        // Scroll to form if data exists
+        if(params.has('rl')) {
+             document.querySelector('.input').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+</script>
     </body>
 
 </html>
