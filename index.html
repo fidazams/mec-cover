@@ -342,30 +342,51 @@
 
         <!-- Linking the script file -->
         <script src="script.js"></script>
-        <script>
-    // AUTO-FILL FORM FROM URL PARAMETERS
+<style>
+    /* 1. CSS for the Highlight Effect */
+    .auto-filled {
+        border: 2px solid #00c853 !important; /* Bright Green Border */
+        background-color: #e8f5e9 !important; /* Very Light Green Background */
+        box-shadow: 0 0 10px rgba(0, 200, 83, 0.2); /* Soft Glow */
+        transition: all 0.5s ease;
+    }
+</style>
+
+<script>
     window.addEventListener('DOMContentLoaded', (event) => {
+        // 2. Read URL Parameters
         const params = new URLSearchParams(window.location.search);
 
+        // 3. Helper function to Fill & Highlight
         const setVal = (id, key) => {
             if (params.has(key)) {
                 const element = document.getElementById(id);
                 if (element) {
+                    // Set the value
                     element.value = params.get(key);
+                    
+                    // Add the highlight class
+                    element.classList.add('auto-filled');
+                    
+                    // Optional: Add a title so hovering shows why it's green
+                    element.title = "Auto-filled from Dashboard";
                 }
             }
         };
 
-        // Fill fields
+        // 4. Populate Fields with Logic
         setVal('name', 'nm');
         setVal('roll', 'rl');
-        setVal('department', 'dp'); // Must match option value exactly
+        setVal('department', 'dp'); 
         setVal('session', 'ss');
         setVal('batch', 'bt');
 
-        // Scroll to form if data exists
+        // 5. Scroll to the form if data was auto-filled
         if(params.has('rl')) {
-             document.querySelector('.input').scrollIntoView({ behavior: 'smooth' });
+             // Small delay to ensure styles load before scrolling
+             setTimeout(() => {
+                 document.querySelector('.input').scrollIntoView({ behavior: 'smooth', block: 'center' });
+             }, 500);
         }
     });
 </script>
